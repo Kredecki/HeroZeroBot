@@ -9,43 +9,53 @@ def expBtn():
     x = 0
     y = 0
     while x < 10:
-        #Zmien mape x + 1
-        while y < 3:
-            pathToFind = path + "/img/MapPoint" + str(x) + str(y) + ".png" #Budowa ścieżki: ścieżka bezwzględna + folder i nazwa pliku + id mapy + id punktu
+        sleep(1)
+        #Znajdź samolot
+        pathToFind = path + "/img/plain.png"
+        img = pyautogui.locateOnScreen(pathToFind)
+        imgBtn = pyautogui.center(img)
+        pyautogui.moveTo(imgBtn)
+        pyautogui.click(button='left')
+
+        #Znajdź misje
+        sleep(1)
+        pathToFind = path + "/img/" + str(x) + ".png"
+        img = pyautogui.locateOnScreen(pathToFind)
+        imgBtn = pyautogui.center(img)
+        pyautogui.moveTo(imgBtn)
+        if x == 3 or x == 6 or x == 7 or x == 8:
+            pyautogui.move(245, 0)
+        else:
+            pyautogui.move(220, 0)
+        pyautogui.click(button='left')
+
+        #Przeklikaj misje
+        sleep(1)
+        pathToFind = path + "/img/arrowRight.png"
+        img = pyautogui.locateOnScreen(pathToFind)
+        if img == None:
+            pathToFind = path + "/img/cancelErr.png"
             img = pyautogui.locateOnScreen(pathToFind)
-            if img == None:
-                y+=1
-            else:
-                imgBtn = pyautogui.center(img)
-                pyautogui.moveTo(imgBtn)
-                pyautogui.move(0, -105)
-                pyautogui.click(button='left')
+            imgBtn = pyautogui.center(img)
+            pyautogui.moveTo(imgBtn)
+            pyautogui.click(button='left')
+            pyautogui.move(-100, 0)
+            x+=1
+            continue
+        imgBtn = pyautogui.center(img)
+        pyautogui.moveTo(imgBtn)
+        pyautogui.click(button='left')
 
-                sleep(0.5)
-                pathToFind = path + "/img/arrowRight" + ".png"
-                img = pyautogui.locateOnScreen(pathToFind)
-                imgBtn = pyautogui.center(img)
-                pyautogui.moveTo(imgBtn)
-                pyautogui.click(button='left')
+        sleep(0.5)
+        pyautogui.click(button='left')
 
-                sleep(0.5)
-                pyautogui.click(button='left')
+        #cancel
+        pathToFind = path + "/img/cancel.png"
+        img = pyautogui.locateOnScreen(pathToFind)
+        imgBtn = pyautogui.center(img)
+        pyautogui.moveTo(imgBtn)
+        pyautogui.click(button='left')
 
-                sleep(0.5)
-                pathToFind = path + "/img/cancel" + ".png"
-                img = pyautogui.locateOnScreen(pathToFind)
-                imgBtn = pyautogui.center(img)
-                pyautogui.moveTo(imgBtn)
-                pyautogui.click(button='left')
-
-                sleep(0.5)
-                pathToFind = path + "/img/arrowRight" + ".png"
-                img = pyautogui.locateOnScreen(pathToFind)
-                imgBtn = pyautogui.center(img)
-                pyautogui.moveTo(imgBtn)
-                pyautogui.click(button='left')
-
-                break
-        break
+        x+=1
 
 expBtn()
