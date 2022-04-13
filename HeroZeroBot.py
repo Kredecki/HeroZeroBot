@@ -1,76 +1,51 @@
 from time import sleep
 import pyautogui
-import pytesseract
 import os
+import sys
+path = os.path.dirname(sys.argv[0])
+print(path)
 
-pyautogui.FAILSAFE = True
-
-def chooseMission():
-    #Definicja tablic
+def expBtn():
     x = 0
-    while x < 7:
-        MapPoint = []
-        makePath = []
-        vnum = []
-        MapPoint.append(x)
-        makePath.append(x)
-        vnum.append(x)
-        x+=1
-    #Sprawdzanie misji
-    i = 0
-    while i < 1:
-        #Tworzenie ścieżki
-        istr = str(i)
-        path = 'C:/Users/Kredek/Desktop/ReMetin/ReMetin/HeroZeroBot/img/MapPoint'
-        png = '.png'
-        v = 'v'
-        vnum = 0
-
-        while vnum < 3:
-            vnumstr = str(vnum)
-            makePath[i] = path + istr + v + vnumstr + png
-
-            #Obsługa błędów
-            Error1pt1 = 'Na mapie numer '
-            Error1pt2 = ' nie znaleziono odniesienia.'
-            Error1 = Error1pt1 + istr + Error1pt2
-            Error2pt1 = 'Pozycja numer '
-            Error2pt2 = ' jest niedostępna'
-            Error2 = Error2pt1 + vnumstr + Error2pt2
-
-            #Szukanie punktu odniesienia
-            MapPoint[i] = pyautogui.locateOnScreen(makePath[i])
-            if MapPoint[i] == None:
-                print(Error2)
-                vnum+=1
+    y = 0
+    while x < 10:
+        #Zmien mape x + 1
+        while y < 3:
+            pathToFind = path + "/img/MapPoint" + str(x) + str(y) + ".png" #Budowa ścieżki: ścieżka bezwzględna + folder i nazwa pliku + id mapy + id punktu
+            img = pyautogui.locateOnScreen(pathToFind)
+            if img == None:
+                y+=1
             else:
-                #Otwórz panel misji
-                mapPointBtn = pyautogui.center(MapPoint[i])
-                pyautogui.moveTo(mapPointBtn)
+                imgBtn = pyautogui.center(img)
+                pyautogui.moveTo(imgBtn)
                 pyautogui.move(0, -105)
                 pyautogui.click(button='left')
 
-                #Przeklikaj misje
                 sleep(0.5)
-                arrowRight = pyautogui.locateOnScreen('C:/Users/Kredek/Desktop/ReMetin/ReMetin/HeroZeroBot/img/arrowRight.png')
-                arrowRightBtn = pyautogui.center(arrowRight)
-                pyautogui.moveTo(arrowRightBtn)
+                pathToFind = path + "/img/arrowRight" + ".png"
+                img = pyautogui.locateOnScreen(pathToFind)
+                imgBtn = pyautogui.center(img)
+                pyautogui.moveTo(imgBtn)
                 pyautogui.click(button='left')
+
                 sleep(0.5)
                 pyautogui.click(button='left')
 
-                #Zamknij panel misji
                 sleep(0.5)
-                pyautogui.move(125, 0)
+                pathToFind = path + "/img/cancel" + ".png"
+                img = pyautogui.locateOnScreen(pathToFind)
+                imgBtn = pyautogui.center(img)
+                pyautogui.moveTo(imgBtn)
                 pyautogui.click(button='left')
 
-                #Przejdź do następnej mapy
                 sleep(0.5)
-                arrowRight = pyautogui.locateOnScreen('C:/Users/Kredek/Desktop/ReMetin/ReMetin/HeroZeroBot/img/arrowRight.png')
-                arrowRightBtn = pyautogui.center(arrowRight)
-                pyautogui.moveTo(arrowRightBtn)
+                pathToFind = path + "/img/arrowRight" + ".png"
+                img = pyautogui.locateOnScreen(pathToFind)
+                imgBtn = pyautogui.center(img)
+                pyautogui.moveTo(imgBtn)
                 pyautogui.click(button='left')
-                
-                vnum+=3
-        i+=1
-chooseMission()
+
+                break
+        break
+
+expBtn()
