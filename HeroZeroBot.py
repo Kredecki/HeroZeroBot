@@ -21,6 +21,9 @@ def expBtn():
         sleep(1)
         pathToFind = path + "/img/" + str(x) + ".png"
         img = pyautogui.locateOnScreen(pathToFind)
+        if img == None:
+            pathToFind = path + "/img/v" + str(x) + ".png"
+            img = pyautogui.locateOnScreen(pathToFind)
         imgBtn = pyautogui.center(img)
         pyautogui.moveTo(imgBtn)
         if x == 3 or x == 6 or x == 7 or x == 8:
