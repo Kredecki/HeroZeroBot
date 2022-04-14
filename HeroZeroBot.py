@@ -1,10 +1,13 @@
+from tkinter import *
+from tkinter import ttk
 from time import sleep
+from turtle import width
 import pytesseract
 import pyautogui
 import os
 import sys
 
-#OnLoad
+#onLoad
 path = os.path.dirname(sys.argv[0])
 pytesseract.pytesseract.tesseract_cmd = r'D:/tesseract/tesseract.exe'
 
@@ -145,4 +148,51 @@ def expBtn():
 
         x+=1
 
-expBtn()
+def expStopBtn():
+    print('')
+
+#gui
+
+#TODO
+##########################
+#  SETTINGS  #  Exp Bot  #
+#TesseractCMD#           #
+#  [      ]  #  [START]  #
+#  [APPLY!]  #  [STOP!]  #
+##########################
+#         [QUIT]         #
+##########################
+
+hzb = Tk()
+hzb.title('HzBot')
+
+mainFrm = ttk.Frame(hzb)
+mainFrm.grid()
+mainFrm['padding'] = 10
+mainFrm['relief'] = 'sunken'
+
+settings = ttk.Frame(mainFrm)
+settings.grid(column=0, row=1)
+settings['padding'] = 10
+settings['border'] = 2
+settings['relief'] = 'sunken'
+ttk.Label(mainFrm, text="Settings").grid(column=0, row=0)
+ttk.Label(settings, text="TesseractCMD").grid(column=0, row=0)
+Text(settings, height = 1, width = 10).grid(column=0, row=1) #TODO: Ustawienia ścieżki do tesseracta, kalibracja tesseracta
+ttk.Button(settings, text="APPLY", command=expBtn).grid(column=0, row=2)
+
+ttk.Label(mainFrm, text="Exp Bot").grid(column=1, row=0)
+expBotFrm = ttk.Frame(mainFrm)
+expBotFrm.grid(column=1, row=1, padx=10)
+expBotFrm['padding'] = 10
+expBotFrm['border'] = 2
+expBotFrm['relief'] = 'sunken'
+#expBotFrm = ttk.Frame(hzb, width=1000, height=1000) TODO: Do naprawy
+
+ttk.Button(expBotFrm, text="Start", command=expBtn).grid(column=1, row=1)
+ttk.Button(expBotFrm, text="Stop", command=expStopBtn).grid(column=1, row=2)
+ttk.Radiobutton(expBotFrm, text="Exp", value=1).grid(column=1, row=3)
+ttk.Radiobutton(expBotFrm, text="Exp", value=2).grid(column=1, row=4) #TODO: zmienić na Money
+
+#quit = ttk.Button(mainFrm, text="Quit", command=hzb.destroy, width=10).grid(column=0, row=99) TODO: Do poprawy
+hzb.mainloop()
